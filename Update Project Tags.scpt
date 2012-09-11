@@ -1,7 +1,36 @@
+-- Update Project Tags BBEdit Menu Script
+-- Created by Nano
+-----------------------------------------
+-- Description: When run in a window displaying the text contents
+--              of a file in a BBEdit project (or pseudo-project
+--              from a folder), this script will run the "bbedit --maketags"
+--              command in the root directory of your project.
+--
+--              This creates a "tags" file in your root directory which
+--              contains references to all the classes an functions
+--              in all the files in your project, which lets you
+--              use text autocomplete across your entire project.
+--
+--              For more information on the "tags" file and its uses,
+--              see http://www.barebones.com/support/develop/ctags.html
+--
+--              To manually install BBEdit's command line files, go to
+--              http://www.barebones.com/support/bbedit/cmd-line-tools.html
+--
+--
+-- How to use:  Drag this script into your Application Support/BBEdit/Scripts
+--              folder. Run from the script menu (or assign a custom key command
+--              from System Preferences for increased usefulness) when you
+--              are editing a file within a project. If you are editing a file
+--              outside of the directory tree of the project, or do not have
+--              a text file open in BBEdit, the script will fail.
+
 on run
+
 	-- The run handler is called when the script is invoked normally,
 	-- such as from BBEdit's Scripts menu.
 	UpdateProjectTags()
+	
 end run
 
 
@@ -56,6 +85,7 @@ on UpdateProjectTags()
 end UpdateProjectTags
 
 on theSplit(theString, theDelimiter)
+
 	-- save delimiters to restore old settings
 	set oldDelimiters to AppleScript's text item delimiters
 	-- set delimiters to delimiter to be used
@@ -66,13 +96,16 @@ on theSplit(theString, theDelimiter)
 	set AppleScript's text item delimiters to oldDelimiters
 	-- return the result
 	return theArray
+	
 end theSplit
 
 on replace_chars(this_text, search_string, replacement_string)
+
 	set AppleScript's text item delimiters to the search_string
 	set the item_list to every text item of this_text
 	set AppleScript's text item delimiters to the replacement_string
 	set this_text to the item_list as string
 	set AppleScript's text item delimiters to ""
 	return this_text
+	
 end replace_chars
